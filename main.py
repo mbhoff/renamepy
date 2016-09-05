@@ -13,8 +13,14 @@ parser = argparse.ArgumentParser( usage = "-h for help, -v for verbose, -i for i
 
 # optional switches (may occur in any order)
 parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
-parser.add_argument("-i", "--integer", type=int, metavar="N", help="supply an int value")
-parser.add_argument("-f", "--real", type=float, metavar="N", help="supply a float value")
+parser.add_argument("-t", "--trim", type=int, metavar="N", help="trims the filename a certain number of digits from the beginning")
+#parser.add_argument("-f", "--real", type=float, metavar="N", help="supply a float value")
+parser.add_argument("-l", "--lower", action="store_true", help="converts filename to lowercase")
+parser.add_argument("-u", "--uppper", action="store_true", help="converts filename to uppercase")
+parser.add_argument("-p", "--print", action="store_true", help="prints the old and new filenames without rewriting them")
+parser.add_argument("-i", "--interactive", action="store_true", help="turns on interactive mode")
+parser.add_argument("-r", "--replace", type=str, nargs=2, metavar=("oldfilename", "newfilename"), help="replaces the oldfilename with the new filename")
+
 
 # required positional arguments
 parser.add_argument("x", type=int, help="base")
@@ -30,8 +36,7 @@ args = parser.parse_args()
 print( 'cmd args:', sys.argv )
 print( 'argparse:', args )
 print( 'args.verbose =', args.verbose )
-print( 'args.integer =', args.integer )
-print( 'args.real =', args.real )
+print( 'args.lower =', args.lower )
 print( args.x, "**", args.y, "=", args.x ** args.y )
 print( "names: ", args.names )
 

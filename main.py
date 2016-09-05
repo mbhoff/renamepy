@@ -20,6 +20,11 @@ parser.add_argument("-u", "--uppper", action="store_true", help="converts filena
 parser.add_argument("-p", "--print", action="store_true", help="prints the old and new filenames without rewriting them")
 parser.add_argument("-i", "--interactive", action="store_true", help="turns on interactive mode")
 parser.add_argument("-r", "--replace", type=str, nargs=2, metavar=("oldfilename", "newfilename"), help="replaces the oldfilename with the new filename")
+parser.add_argument("-d", "--delete", action="store_true", help="deletes the file")
+parser.add_argument("-dt", "--touch", action="store_true", help="updates time stamps to current time")
+parser.add_argument("-D", "--date", type=int, metavar="N", help="updates the date time stamps to specified date")
+parser.add_argument("-T", "--time", type=int, metavar="N", help="updates the time stamps to specified date")
+
 
 
 # required positional arguments

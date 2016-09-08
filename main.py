@@ -6,14 +6,14 @@
 # Usage: python cmdargparse.py [-h] [-v] [-i N] [-f N] x y [n1 n2 n3 ...]
 # Prints x**y and [n1,n2,...]
 
-import sys, argparse
+import sys, argparse, glob, os, fnmatch
 
 
 parser = argparse.ArgumentParser( usage = "-h for help, -v for verbose, -i for int, -f for float" )
 
 # optional switches (may occur in any order)
 parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
-parser.add_argument("-t", "--trim", type=int, metavar="N", help="trims the filename a certain number of digits from the beginning")
+parser.add_argument("-t", "--trim", type=int, metavar="N", help="positive n: trim n chars from the start of each filename negative n: trim n chars from the end of each filename")
 #parser.add_argument("-f", "--real", type=float, metavar="N", help="supply a float value")
 parser.add_argument("-l", "--lower", action="store_true", help="converts filename to lowercase")
 parser.add_argument("-u", "--uppper", action="store_true", help="converts filename to uppercase")
@@ -48,6 +48,8 @@ print( 'args.lower =', args.lower )
 print( "names: ", args.names )
 
 if __name__ == '__main__':
-    print("test")
-
+    #print("test")
+    for s in args.names:
+        for filename in glob.glob(s):
+            print(filename, end=" ")
 

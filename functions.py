@@ -2,22 +2,23 @@ import sys
 print(sys.argv)
 #
 
-def verbose()
-
-def trim()
-
-def lower()
-
-def upper()
-
-def print()
-
-def replace()
-
-def delete()
-
-def touch()
-
-def date()
-
-def time()
+def verbose():
+    print("verbose")
+def trim():
+    print("trim")
+def lower():
+    print("lower")
+def upper():
+    print("upper")
+def print():
+    print("print")
+def replace():
+    print("replace")
+def delete():
+    print("delete")
+def touch():
+    print("touch")
+def date():
+    print("date")
+def time():
+    print("time")

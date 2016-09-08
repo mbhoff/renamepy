@@ -22,29 +22,30 @@ parser.add_argument("-i", "--interactive", action="store_true", help="turns on i
 parser.add_argument("-r", "--replace", type=str, nargs=2, metavar=("oldfilename", "newfilename"), help="replaces the oldfilename with the new filename")
 parser.add_argument("-d", "--delete", action="store_true", help="deletes the file")
 parser.add_argument("-dt", "--touch", action="store_true", help="updates time stamps to current time")
-parser.add_argument("-D", "--date", type=int, metavar="N", help="updates the date time stamps to specified date")
-parser.add_argument("-T", "--time", type=int, metavar="N", help="updates the time stamps to specified date")
+parser.add_argument("-D", "--date", type=int, metavar="DDMMYYYY", help="updates the date time stamps to specified date")
+parser.add_argument("-T", "--time", type=int, metavar="HHMMSS", help="updates the time stamps to specified date")
 
 
 
 # required positional arguments
+'''
 parser.add_argument("x", type=int, help="base")
 parser.add_argument("y", type=int, help="exponent")
-
+'''
 # followed by 0 or more strings
-parser.add_argument("names", type=str, nargs='*', help="list of strings")
+parser.add_argument("names", type=str, nargs='+', help="list of strings")
 
 # parse command arguments
 args = parser.parse_args()
 
 # print results of parsing
+
+#print( args.x, "**", args.y, "=", args.x ** args.y )
 print( 'cmd args:', sys.argv )
 print( 'argparse:', args )
 print( 'args.verbose =', args.verbose )
 print( 'args.lower =', args.lower )
-print( args.x, "**", args.y, "=", args.x ** args.y )
 print( "names: ", args.names )
-
 
 if __name__ == '__main__':
     print("test")

@@ -83,7 +83,33 @@ if __name__ == '__main__':
             newFileNames[i] = trim(newFileNames[i],args.trim, args.interactive)
             if args.verbose:
                 print('was changed to',newFileNames[i])
+    
+
+    if args.touch:
+        touch(originalFileNames,args.interactive)
+
+    if args.date != None:
+        date(originalFileNames,args.date,args.interactive)
+
+
+    if args.time != None:
+        time(originalFileNames,args.time,args.interactive)
+
+
+
+
+
+
+
+
     if args.print:
         oldNew(originalFileNames, newFileNames)
     else:
         changename(originalFileNames, newFileNames)
+
+
+
+
+
+
+

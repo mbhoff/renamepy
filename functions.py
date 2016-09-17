@@ -1,5 +1,5 @@
 #TODO Ask if we need to preserve file extensions
-import sys, os
+import sys, os, datetime, time
 
 def checkYes(a):
     return a in ('yes','y')
@@ -46,9 +46,41 @@ def replace():
     print("replace")
 def delete():
     print("delete")
-def touch():
-    print("touch")
-def date():
-    print("date")
-def time():
-    print("time")
+def touch(inNames,interactive):
+    for filename in inNames:
+        good = True
+        if interactive:
+            qStr = 'do you want to touch ' + filename + '?(y/n): '
+            good = checkYes( input(qStr) )
+        if good:
+            ct = datetime.datetime.now()
+            os.utime(filename,(ct.timestamp(), ct.timestamp()))
+
+def date(inNames, dat ,interactive):
+    for filename in inNames:
+        good = True
+        if interactive:
+            qStr = 'do you want to change date for file ' + filename + '?(y/n): '
+            good = checkYes( input(qStr) )
+        if good:
+            ot = os.path.getmtime(filename)
+            odt = datetime.datetime.fromtimestamp(ot)
+            nt = datetime.datetime(dat % 10000, (dat // 10000) % 100, (dat // 1000000) % 100,odt.hour,odt.minute,odt.second)
+            os.utime(filename,(nt.timestamp(), nt.timestamp()))
+def time(inNames, tim ,interactive):
+    for filename in inNames:
+        good = True
+        if interactive:
+            qStr = 'do you want to change time for ' + filename + '?(y/n): '
+            good = checkYes( input(qStr) )
+        if good:
+            ot = os.path.getmtime(filename)
+            odt = datetime.datetime.fromtimestamp(ot)
+            nt = datetime.datetime(odt.year,odt.month,odt.day,(tim //10000) % 100,(tim // 100) % 100,tim % 100)
+            os.utime(filename,(nt.timestamp(), nt.timestamp()))
+
+
+
+
+
+

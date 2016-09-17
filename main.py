@@ -7,7 +7,7 @@
 # Prints x**y and [n1,n2,...]
 
 import sys, argparse, glob, os, fnmatch
-from functions import lower,upper
+from functions import *
 
 
 
@@ -60,11 +60,30 @@ if __name__ == '__main__':
     #print(originalFileNames)
     newFileNames = originalFileNames[:]
     
+    
     if args.lower:
         for i in range(len(newFileNames)):
+            if args.verbose:
+                print('file:',newFileNames[i],end=' ')            
             newFileNames[i] = lower(newFileNames[i], args.interactive)
+            if args.verbose:
+                print('was changed to',newFileNames[i])
     if args.upper:
         for i in range(len(newFileNames)):
+            if args.verbose:
+                print('file:',newFileNames[i],end=' ')  
             newFileNames[i] = upper(newFileNames[i], args.interactive)
-    
-    print(newFileNames);
+            if args.verbose:
+                print('was changed to',newFileNames[i])
+
+    if args.trim != None:
+        for i in range(len(newFileNames)):
+            if args.verbose:
+                print('file:',newFileNames[i],end=' ')
+            newFileNames[i] = trim(newFileNames[i],args.trim, args.interactive)
+            if args.verbose:
+                print('was changed to',newFileNames[i])
+    if args.print:
+        oldNew(originalFileNames, newFileNames)
+    else:
+        changename(originalFileNames, newFileNames)

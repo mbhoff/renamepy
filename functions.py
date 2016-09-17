@@ -44,8 +44,14 @@ def oldNew(oldFileNames,newFileNames):
         print('Original File Name:',oldFileNames[i],'New File Name:',newFileNames[i])
 def replace():
     print("replace")
-def delete():
-    print("delete")
+def delete(inNames,interactive):
+    for filename in inNames:
+        good = True
+        if interactive:
+            qStr = 'do you want to delete ' + filename + '?(y/n): '
+            good = checkYes( input(qStr) )
+        if good:
+            os.remove(filename)
 def touch(inNames,interactive):
     for filename in inNames:
         good = True

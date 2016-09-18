@@ -95,6 +95,18 @@ def replaceReg(filename,reg1,reg2, interactive):
     else:
         return filename
 
-
+def countString(filename,index, interactive):
+    good = True
+    if interactive:
+        qStr = 'do you want to rename file in sequence for file named:' + filename + '?(y/n): '
+        good = checkYes( input(qStr) )
+    if good:
+        filename = filename[::-1]
+        while filename.rfind('#') != -1:
+            filename = filename.replace('#', str(index % 10), 1)
+            index = index // 10
+        return filename[::-1]
+    else:
+        return filename
 
 

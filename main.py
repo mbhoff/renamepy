@@ -24,6 +24,7 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--print", action="store_true", help="prints the old and new filenames without rewriting them")
     parser.add_argument("-i", "--interactive", action="store_true", help="turns on interactive mode")
     parser.add_argument("-r", "--replace", type=str, nargs=2, metavar=("oldfilename", "newfilename"), help="replaces the oldfilename with the new filename")
+    parser.add_argument("-n", "--number", type=str,metavar="N", help="rename files in sequence using count string #'s in count string become numbers")
     parser.add_argument("-d", "--delete", action="store_true", help="deletes the file")
     parser.add_argument("-dt", "--touch", action="store_true", help="updates time stamps to current time")
     parser.add_argument("-D", "--date", type=int, metavar="DDMMYYYY",help="updates the date time stamps to specified date")
@@ -94,6 +95,14 @@ if __name__ == '__main__':
                     if args.verbose:
                         print('was changed to',newFileNames[i])
             
+            
+            elif curArg in ('-n','--number'):
+                for i in range(len(newFileNames)):
+                    if args.verbose:
+                        print('file:',newFileNames[i],end=' ')  
+                    newFileNames[i] = countString(sys.argv[curIndex+1],i+1, args.interactive)
+                    if args.verbose:
+                        print('was changed to',newFileNames[i])
 
             elif curArg in ('-dt','--touch'):
                 touch(originalFileNames,args.interactive)

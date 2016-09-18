@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     # optional switches (may occur in any order)
     parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
-    parser.add_argument("-t", "--trim", type=int, metavar="N", help="positive n: trim n chars from the start of each filename negative n: trim n chars from the end of each filename")
+    parser.add_argument("-t", "--trim", type=int,metavar="N", help="positive n: trim n chars from the start of each filename negative n: trim n chars from the end of each filename")
     #parser.add_argument("-f", "--real", type=float, metavar="N", help="supply a float value")
     parser.add_argument("-l", "--lower", action="store_true", help="converts filename to lowercase")
     parser.add_argument("-u", "--upper", action="store_true", help="converts filename to uppercase")
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     parser.add_argument("-r", "--replace", type=str, nargs=2, metavar=("oldfilename", "newfilename"), help="replaces the oldfilename with the new filename")
     parser.add_argument("-d", "--delete", action="store_true", help="deletes the file")
     parser.add_argument("-dt", "--touch", action="store_true", help="updates time stamps to current time")
-    parser.add_argument("-D", "--date", type=int, metavar="DDMMYYYY", help="updates the date time stamps to specified date")
+    parser.add_argument("-D", "--date", type=int, metavar="DDMMYYYY",help="updates the date time stamps to specified date")
     parser.add_argument("-T", "--time", type=int, metavar="HHMMSS", help="updates the time stamps to specified date")
 
 
@@ -41,9 +41,7 @@ if __name__ == '__main__':
 
     # parse command arguments
     args = parser.parse_args()
-
     # print results of parsing
-
     #print( args.x, "**", args.y, "=", args.x ** args.y )
     '''print( 'cmd args:', sys.argv )
     print( 'argparse:', args )
@@ -62,57 +60,55 @@ if __name__ == '__main__':
     
     if args.delete:
         delete(originalFileNames,args.interactive)
-    else:    
-        if args.lower:
-            for i in range(len(newFileNames)):
-                if args.verbose:
-                    print('file:',newFileNames[i],end=' ')            
-                newFileNames[i] = lower(newFileNames[i], args.interactive)
-                if args.verbose:
-                    print('was changed to',newFileNames[i])
-        if args.upper:
-            for i in range(len(newFileNames)):
-                if args.verbose:
-                    print('file:',newFileNames[i],end=' ')  
-                newFileNames[i] = upper(newFileNames[i], args.interactive)
-                if args.verbose:
-                    print('was changed to',newFileNames[i])
+    else:
+        curIndex = 0;
+        for curArg in sys.argv:
+            if curArg in ('-l','--lower'):
+                for i in range(len(newFileNames)):
+                    if args.verbose:
+                        print('file:',newFileNames[i],end=' ')            
+                    newFileNames[i] = lower(newFileNames[i], args.interactive)
+                    if args.verbose:
+                        print('was changed to',newFileNames[i])
+            elif curArg in ('-u','--upper'):
+                for i in range(len(newFileNames)):
+                    if args.verbose:
+                        print('file:',newFileNames[i],end=' ')  
+                    newFileNames[i] = upper(newFileNames[i], args.interactive)
+                    if args.verbose:
+                        print('was changed to',newFileNames[i])
 
-        if args.trim != None:
-            for i in range(len(newFileNames)):
-                if args.verbose:
-                    print('file:',newFileNames[i],end=' ')
-                newFileNames[i] = trim(newFileNames[i],args.trim, args.interactive)
-                if args.verbose:
-                    print('was changed to',newFileNames[i])
+            elif curArg in ('-t','--trim'):
+                for i in range(len(newFileNames)):
+                    if args.verbose:
+                        print('file:',newFileNames[i],end=' ')
+                    newFileNames[i] = trim(newFileNames[i],int(sys.argv[curIndex+1]), args.interactive)
+                    if args.verbose:
+                        print('was changed to',newFileNames[i])
 
-        if args.replace:
-            for i in range(len(newFileNames)):
-                if args.verbose:
-                    print('file:',newFileNames[i],end=' ')  
-                newFileNames[i] = replaceReg(newFileNames[i],args.replace[0], args.replace[1], args.interactive)
-                if args.verbose:
-                    print('was changed to',newFileNames[i])
-        
+            elif curArg in ('-r','--replace'):
+                for i in range(len(newFileNames)):
+                    if args.verbose:
+                        print('file:',newFileNames[i],end=' ')  
+                    newFileNames[i] = replaceReg(newFileNames[i],sys.argv[curIndex+1], sys.argv[curIndex+2], args.interactive)
+                    if args.verbose:
+                        print('was changed to',newFileNames[i])
+            
 
-        if args.touch:
-            touch(originalFileNames,args.interactive)
+            elif curArg in ('-dt','--touch'):
+                touch(originalFileNames,args.interactive)
 
-        if args.date != None:
-            date(originalFileNames,args.date,args.interactive)
+            elif curArg in ('-D','--date'):
+                date(originalFileNames,args.date,args.interactive)
 
 
-        if args.time != None:
-            time(originalFileNames,args.time,args.interactive)
+            elif curArg in ('-T','--time'):
+                time(originalFileNames,args.time,args.interactive)
+            
+            curIndex += 1
 
         if args.print:
             oldNew(originalFileNames, newFileNames)
         else:
             changename(originalFileNames, newFileNames)
-
-
-
-
-
-
 

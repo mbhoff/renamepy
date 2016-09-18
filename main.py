@@ -85,6 +85,14 @@ if __name__ == '__main__':
                 newFileNames[i] = trim(newFileNames[i],args.trim, args.interactive)
                 if args.verbose:
                     print('was changed to',newFileNames[i])
+
+        if args.replace:
+            for i in range(len(newFileNames)):
+                if args.verbose:
+                    print('file:',newFileNames[i],end=' ')  
+                newFileNames[i] = replaceReg(newFileNames[i],args.replace[0], args.replace[1], args.interactive)
+                if args.verbose:
+                    print('was changed to',newFileNames[i])
         
 
         if args.touch:

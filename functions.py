@@ -1,5 +1,5 @@
 #TODO Ask if we need to preserve file extensions
-import sys, os, datetime, time
+import sys, os, datetime, time, re
 
 def checkYes(a):
     return a in ('yes','y')
@@ -85,7 +85,15 @@ def time(inNames, tim ,interactive):
             nt = datetime.datetime(odt.year,odt.month,odt.day,(tim //10000) % 100,(tim // 100) % 100,tim % 100)
             os.utime(filename,(nt.timestamp(), nt.timestamp()))
 
-
+def replaceReg(filename,reg1,reg2, interactive):
+    good = True
+    if interactive:
+        qStr = 'do you want to use the supplied regex expression to replace ' + reg1 + " with " + reg2 + " for file named:" + filename + '?(y/n): '
+        good = checkYes( input(qStr) )
+    if good:
+        return re.sub((reg1),(reg2),filename)
+    else:
+        return filename
 
 
 

@@ -2,10 +2,14 @@
 import sys, os, datetime, time, re
 
 def checkYes(a):
+    """Checsks to see if yes or a variation of yes was provided. Returns true or false"""
     return a in ('yes','y')
 
 
 def trim(filename, n, interactive):
+    """Trims the input name by the number given.
+    Positive number starts from start
+    Negative numbers start from the end"""
     good = True
     if interactive:
         qStr = 'do you want to trim ' + n + ' characters from ' + filename + '?(y/n): '
@@ -19,6 +23,7 @@ def trim(filename, n, interactive):
         return filename
 
 def lower(filename, interactive):
+    """Converts the filename to lowercase"""
     good = True
     if interactive:
         qStr = 'do you want to LowerCase ' + filename + '?(y/n): '
@@ -28,6 +33,7 @@ def lower(filename, interactive):
     else:
         return filename
 def upper(filename, interactive):
+    """Converts the filename to UpperCase"""
     good = True
     if interactive:
         qStr = 'do you want to UpperCase ' + filename + '?(y/n): '
@@ -37,14 +43,15 @@ def upper(filename, interactive):
     else:
         return filename
 def changename(originalFileNames, newFileNames):
+    """Replaces old filenames with new filenames"""
     for i in range(len(newFileNames)):
         os.rename(originalFileNames[i], newFileNames[i])
 def oldNew(oldFileNames,newFileNames):
+    """Prints out the names of the old file and the new name it would have been given"""
     for i in range(len(oldFileNames)):
         print('Original File Name:',oldFileNames[i],'New File Name:',newFileNames[i])
-def replace():
-    print("replace")
 def delete(inNames,interactive):
+    """Deletes files that match the names given"""
     for filename in inNames:
         good = True
         if interactive:
@@ -53,6 +60,7 @@ def delete(inNames,interactive):
         if good:
             os.remove(filename)
 def touch(inNames,interactive):
+    """Updtates the modified date and time to current date and time"""
     for filename in inNames:
         good = True
         if interactive:
@@ -63,6 +71,7 @@ def touch(inNames,interactive):
             os.utime(filename,(ct.timestamp(), ct.timestamp()))
 
 def date(inNames, dat ,interactive):
+    """Changes modified date to the given date"""
     for filename in inNames:
         good = True
         if interactive:
@@ -74,6 +83,7 @@ def date(inNames, dat ,interactive):
             nt = datetime.datetime(dat % 10000, (dat // 10000) % 100, (dat // 1000000) % 100,odt.hour,odt.minute,odt.second)
             os.utime(filename,(nt.timestamp(), nt.timestamp()))
 def time(inNames, tim ,interactive):
+    """Changes the modified time to the given time"""
     for filename in inNames:
         good = True
         if interactive:
@@ -86,6 +96,7 @@ def time(inNames, tim ,interactive):
             os.utime(filename,(nt.timestamp(), nt.timestamp()))
 
 def replaceReg(filename,reg1,reg2, interactive):
+    """Changes the given name using the provided regular expressions"""
     good = True
     if interactive:
         qStr = 'do you want to use the supplied regex expression to replace ' + reg1 + " with " + reg2 + " for file named:" + filename + '?(y/n): '
@@ -96,6 +107,7 @@ def replaceReg(filename,reg1,reg2, interactive):
         return filename
 
 def countString(filename,index, interactive):
+    """Replaces the # symbomols in the given filename with the number given""" 
     good = True
     if interactive:
         qStr = 'do you want to rename file in sequence for file named:' + filename + '?(y/n): '
